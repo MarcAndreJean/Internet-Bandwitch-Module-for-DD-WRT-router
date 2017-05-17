@@ -4,7 +4,7 @@
 
 ## Installation
 <p align="justify"> Tout dabord, votre routeur principal (celui connecté directement sur le modem de votre ISP) doit être flashé avec le firmware de <a href="http://dd-wrt.com">DD-WRT.com</a>. Ensuite, le calcul du <i>bandwitch</i> et <i>Telnet</i> doivent être activés dans la configuration de votre routeur.</p>
-<p align="justify"> Si vous avez tous les prérequis précédent, effectuer tout simplement les raccordements indiqués dans la section <b>Schéma</b> et uploadé le code tel qu'indiqué dans la section <b>Code</b>.</p>
+<p align="justify"> Si vous avez tous les prérequis précédent, effectuer tout simplement les raccordements indiqués dans la section <a href="https://github.com/MarcAndreJean/Internet-Bandwitch-Module-for-DD-WRT-router#schéma">Schéma</a> et uploadé le code tel qu'indiqué dans la section <a href="https://github.com/MarcAndreJean/Internet-Bandwitch-Module-for-DD-WRT-router#code">Code</a>.</p>
 <br />
 
 ## Liste des composantes
@@ -23,8 +23,14 @@
 <p align="justify"> Vous devez ajouté dans votre routeur ce script de démarrage : <a href="https://github.com/MarcAndreJean/Internet-Bandwitch-Module-for-DD-WRT-router/tree/master/Code/bandwitch.txt">bandwitch.txt</a>. Celui-ci créera un script dans le dossier temporaire du Root à chaque redémarrage. Il aurait été possible de mettre le script dans l'espace de stockage permanent JFFS mais malheuresement cette solution ne marche pas pour tous les routeurs. Et puisque que les fichiers temporaires sont supprimés après chaque démarrage, il s'agit de la seule solution que j'ai trouvé. C'est moche mais ça fonctionne.</p>
 
 ### Code pour votre Arduino
-<p align="justify"> Le code à uploader dans votre Arduino est celui du fichier <a href="https://github.com/MarcAndreJean/Internet-Bandwitch-Module-for-DD-WRT-router/tree/master/Code/Code.ino">Code.ino</a>
+<p align="justify"> Le code à uploader dans votre Arduino est celui du fichier <a href="https://github.com/MarcAndreJean/Internet-Bandwitch-Module-for-DD-WRT-router/tree/master/Code/Code.ino">Code.ino</a>.</p>
 <p align="justify"> Si vous utilisé le module Ethernet ENC28J60, vous devez ajouté la librairie <i>&#60;UIPEthernet.h&#62;</i> disponible <a href="https://github.com/ntruchsess/arduino_uip">ici</a>. Vous devrez downloadé le zip du projet complet avec le button <i>"clone or download"</i> sur la page Git puis ajouté dans votre l'IDE le zip [<i>IDE->Croquis->Inclure une bibliothèque->Ajouter bibliothèque ZIP ...</i>]. Sinon, si vous avez le Shield Ethernet, vous devez utilisé la librairie <i>&#60;Ethernet.h&#62;</i> qui est déjà inclut dans l'IDE d'Arduino. </p>
+
+#### Important
+* Vous devez commentez la ligne du <i>#include</i> approprié du fichier <b>Code.ino</b> selon le module Ethernet que vous utiliserez (ligne 1 et 2). 
+* Vous devez aussi changé l'adresse IP de la ligne 18 pour celle de votre routeur. 
+* Ensuite, vous devez remplacé les valeurs des <i>#Define</i> de la ligne 4 et 5 avec le login et le mot de passe de votre routeur.
+* Finalement, vous <i>pouvez</i> changé l'adresse MAC de votre Arduino à la ligne 13-15.
 <br />
 <br /> 
 
