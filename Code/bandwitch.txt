@@ -1,0 +1,27 @@
+cd /tmp/root
+touch bandwitch.sh
+chmod +x bandwitch.sh
+echo "#!/bin/sh" >> bandwitch.sh
+echo "aff=\"aff\"" >> bandwitch.sh
+echo "day=\$(date -D %s -d \$(( \$(date +%s))) +%d)" >> bandwitch.sh
+echo "mon=\$(date -D %s -d \$(( \$(date +%s))) +tr\$aff-%m-%Y)" >> bandwitch.sh
+echo "DAYCOUNT=\$((\$(nvram get \$mon | wc -w) - 1))" >> bandwitch.sh
+echo "lmon=\$(date -D %s -d \$(( \$(date +%s) - (86400 * \$day))) +tr\$aff-%m-%Y)" >> bandwitch.sh
+echo "LDAYCOUNT=\$((\$(nvram get \$lmon | wc -w) - 1))" >> bandwitch.sh
+echo "total=0" >> bandwitch.sh
+echo "if [ \$((\$day > 10)) -ne 0 ]; then" >> bandwitch.sh
+echo "i=10; while [ \$(( ( i += 1 ) <= \$DAYCOUNT )) -ne 0 ]; do" >> bandwitch.sh
+echo "total=\$((\$total + \$(nvram get \$mon | awk '{print \$'\$i'}' | sed 's/\([^:]*\):\([^ ]*\)/\1/')))" >> bandwitch.sh
+echo "total=\$((\$total + \$(nvram get \$mon | awk '{print \$'\$i'}' | sed 's/\([^:]*\):\([^ ]*\)/\2/')))" >> bandwitch.sh
+echo "done" >> bandwitch.sh
+echo "else" >> bandwitch.sh
+echo "i=0; while [ \$(( ( i += 1 ) <= 10 )) -ne 0 ]; do" >> bandwitch.sh
+echo "total=\$((\$total + \$(nvram get \$mon | awk '{print \$'\$i'}' | sed 's/\([^:]*\):\([^ ]*\)/\1/')))" >> bandwitch.sh
+echo "total=\$((\$total + \$(nvram get \$mon | awk '{print \$'\$i'}' | sed 's/\([^:]*\):\([^ ]*\)/\2/')))" >> bandwitch.sh
+echo "done" >> bandwitch.sh
+echo "i=10; while [ \$(( ( i += 1 ) <= \$DAYCOUNT )) -ne 0 ]; do"  >> bandwitch.sh
+echo "total=\$((\$total + \$(nvram get \$lmon | awk '{print \$'\$i'}' | sed 's/\([^:]*\):\([^ ]*\)/\1/')))" >> bandwitch.sh
+echo "total=\$((\$total + \$(nvram get \$lmon | awk '{print \$'\$i'}' | sed 's/\([^:]*\):\([^ ]*\)/\2/')))" >> bandwitch.sh
+echo "done" >> bandwitch.sh
+echo "fi" >> bandwitch.sh
+echo "echo \$total" >> bandwitch.sh
